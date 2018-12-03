@@ -9,7 +9,7 @@ public class RSA
         //Person Alice = new Person();
         //Person Bob = new Person();
 
-        String msg = new String ("Bob, let's have lunch."); 	// message to be sent to Bob
+        String msg = "Bob, let's have lunch."; 	// message to be sent to Bob
         long []  cipher;
         //cipher =  Alice.encryptTo(msg, Bob);			// encrypted, with Bob's public key
 
@@ -21,7 +21,7 @@ public class RSA
         // with Bob's private key.
         System.out.println ();
 
-        msg = new String ("No thanks, I'm busy");
+        msg = "No thanks, I'm busy";
         //cipher = Bob.encryptTo (msg, Alice);
 
         System.out.println ("Message is: " + msg);
