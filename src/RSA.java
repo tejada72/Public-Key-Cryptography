@@ -77,6 +77,59 @@ The inverse of e, mod m. Uses the extended Eulidean Algorithm*/
       return result;
    }
 
+   //TODO stub
+    /**
+     * Converts a long to 2 chars
+     * @param x type long to convert it into 2 chars.
+     * @return The string made up two numeric digits representing x
+     */
+   public static String longTo2Chars(long x) {
+       return "";
+   }
+
+   //TODO stub
+    /**
+     * Find a random prime number
+     * @param m - Smallest value within the range
+     * @param n - Highest value within the range
+     * @param rand - Pseudo random generator from java.util
+     * @return A random prime in the range m..n, using rand to generate the number
+     */
+    public static long randPrime(int m, int n, Random rand) {
+       return 0L;
+    }
+
+    //TODO stub
+    /**
+     * Find a random number relatively prime to a given long int
+     * @param n Prime number
+     * @param rand Pseudo random generator from java.util
+     * @return a random number relatively prime to n
+     */
+    public static long relPrime(long n, Random rand) {
+        return 0L;
+    }
+
+    //TODO stub
+    /**
+     * Display an array of longs on stdout
+     * @param cipher Array of longs to get printed out.
+     */
+    public static void show(long[] cipher) {
+       System.out.println("Finish this method");
+    }
+
+    //TODO stub
+    /**
+     * Convert two numeric chars to long int
+     * @param msg Message
+     * @param p Position
+     * @return the two digit number beginning at position p of msg as a long int.
+     */
+    public static long toLong(String msg, int p) {
+       return 0L;
+    }
+
 
 // ..........  place class methods here
 
