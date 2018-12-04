@@ -1,5 +1,3 @@
-import java.io.*;
-import java.math.*;
 import java.util.*;	// Random number generator
 import java.lang.Long;
 
@@ -7,29 +5,29 @@ public class RSA
 {
     public static void main (String args[])
     {
-        //Person Alice = new Person();
-        //Person Bob = new Person();
+        Person Alice = new Person();
+        Person Bob = new Person();
 
         String msg = "Bob, let's have lunch."; 	// message to be sent to Bob
         long []  cipher;
-        //cipher =  Alice.encryptTo(msg, Bob);			// encrypted, with Bob's public key
+        cipher =  Alice.encryptTo(msg, Bob);			// encrypted, with Bob's public key
 
         System.out.println ("Message is: " + msg);
         System.out.println ("Alice sends:");
-        //show (cipher);
+        show (cipher);
 
-        //System.out.println ("Bob decodes and reads: " + Bob.decrypt (cipher));	// decrypted,
+        System.out.println ("Bob decodes and reads: " + Bob.decrypt (cipher));	// decrypted,
         // with Bob's private key.
         System.out.println ();
 
         msg = "No thanks, I'm busy";
-        //cipher = Bob.encryptTo (msg, Alice);
+        cipher = Bob.encryptTo (msg, Alice);
 
         System.out.println ("Message is: " + msg);
         System.out.println ("Bob sends:");
-        //show (cipher);
+        show (cipher);
 
-        //System.out.println ("Alice decodes and reads: " + Alice.decrypt (cipher));
+        System.out.println ("Alice decodes and reads: " + Alice.decrypt (cipher));
     }
 
    /*
@@ -41,7 +39,7 @@ Returns:
 The inverse of e, mod m. Uses the extended Eulidean Algorithm*/
       return 0;
    }
-   
+
    /*
    @author:Wes Holman
    */
@@ -68,7 +66,7 @@ The inverse of e, mod m. Uses the extended Eulidean Algorithm*/
       for(int i = 1; i < powers.length; i++){
          powers[i] = (powers[i-1]*powers[i-1]) % m;
       }
-      for(int i = bits.length(); i >= 0; i--){
+      for(int i = bits.length()-1; i > 0; i--){
          if(bits.charAt(i) == '1'){
             result *= powers[bits.length() - i];
             result = result % m;
@@ -77,60 +75,135 @@ The inverse of e, mod m. Uses the extended Eulidean Algorithm*/
       return result;
    }
 
-   //TODO stub
     /**
      * Converts a long to 2 chars
      * @param x type long to convert it into 2 chars.
+     * @author Alex Tejada
      * @return The string made up two numeric digits representing x
      */
    public static String longTo2Chars(long x) {
-       return "";
+       String result = "";
+       result += (char)(x>>8);
+       x = (long) (x % Math.pow(2, 8));
+       result += (char) ((int) x);
+       return result;
    }
 
-   //TODO stub
+
     /**
      * Find a random prime number
      * @param m - Smallest value within the range
      * @param n - Highest value within the range
      * @param rand - Pseudo random generator from java.util
+     * @author Alex Tejada
      * @return A random prime in the range m..n, using rand to generate the number
      */
     public static long randPrime(int m, int n, Random rand) {
-       return 0L;
+        int initialValue =rand.nextInt(n - m) + m;
+
+        if((initialValue % 2) == 0) {
+            initialValue += 1;
+        }
+
+        int p = 0;
+
+        for(int num = initialValue; p < 2; num = (num + 2)) {
+            if(num > n) {
+                if(m % 2 == 0)
+                    num = m+1;
+                else
+                    num = m;
+            }
+
+            if(num == initialValue)
+                p++;
+
+            if(num == 3)
+                return num;
+
+            for(int i = 3; i < num; i+=2) {
+                if(num % i == 0)
+                    break;
+                else if(i == num - 2)
+                    return num;
+            }
+        }
+        return -1;
     }
 
-    //TODO stub
     /**
      * Find a random number relatively prime to a given long int
      * @param n Prime number
      * @param rand Pseudo random generator from java.util
+     * @author Alex Tejada
      * @return a random number relatively prime to n
      */
     public static long relPrime(long n, Random rand) {
-        return 0L;
+        long result = rand.nextLong();
+        if(result < 0) {
+            result *= -1;
+        }
+        result %= n;
+        if(result == 0) {
+            result++;
+        }
+
+        while(GCD(n,result)>1) {
+            result += 1%n;
+        }
+        return result;
     }
 
-    //TODO stub
+    public static long GCD(long a, long b) {
+        long remainder;
+        while (!(b == 0)) {
+            remainder = a % b;
+            a = b;
+            b = remainder;
+        }
+
+        return a;
+    }
+
     /**
      * Display an array of longs on stdout
      * @param cipher Array of longs to get printed out.
+     * @author Alex Tejada
      */
     public static void show(long[] cipher) {
-       System.out.println("Finish this method");
+        System.out.println(Arrays.toString(cipher));
     }
 
-    //TODO stub
     /**
      * Convert two numeric chars to long int
      * @param msg Message
      * @param p Position
+     * @author Alex Tejada
      * @return the two digit number beginning at position p of msg as a long int.
      */
     public static long toLong(String msg, int p) {
-       return 0L;
+
+        StringBuilder binary = new StringBuilder();
+        int i = p;
+        while (i < p+2)
+        {
+            if(i < msg.length()) {
+                byte b = (byte) msg.charAt(i);
+                int val = b;
+                for (int y = 0; y < 8; y++) {
+                    binary.append((val & 128) == 0 ? 0 : 1);
+                    val <<= 1;
+                }
+            }
+            //binary.append(' ');
+            i++;
+        }
+
+        long result = Long.parseUnsignedLong(binary.toString(),2);
+        return result;
     }
 
 
 // ..........  place class methods here
 
-}	
+}

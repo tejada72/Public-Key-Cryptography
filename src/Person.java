@@ -28,10 +28,10 @@ public class Person {
 	 */
 	public long[] encryptTo(String msg, Person person) {
 		
-		long[] cipher;
+		long[] cipher = new long[msg.length()];
 		for (int i = 0, j = 0; i < msg.length(); i += 2) {
 			// Get the block to encr
-			long block = RSA.toLong(msg, i); 
+			long block = RSA.toLong(msg, i);
 			
 			// Encr the block
 			cipher[j] = RSA.modPower(block, person.getE(), person.getM());
@@ -47,7 +47,7 @@ public class Person {
 	 * @return The plain text message.
 	 */
 	public String decrypt(long[] cipher) {
-		StringBuilder plain;
+		StringBuilder plain = new StringBuilder();
 		for (long l : cipher) {
 			plain.append(RSA.longTo2Chars(l));
 		}
