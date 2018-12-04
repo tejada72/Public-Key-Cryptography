@@ -49,6 +49,7 @@ public class Person {
 	public String decrypt(long[] cipher) {
 		StringBuilder plain = new StringBuilder();
 		for (long l : cipher) {
+			l = RSA.modPower( l , mD, mM);
 			plain.append(RSA.longTo2Chars(l));
 		}
 		return plain.toString();
