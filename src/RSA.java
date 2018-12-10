@@ -5,6 +5,14 @@ public class RSA
 {
     public static void main (String args[])
     {
+    
+        //Wes's method testing
+        System.out.println("11: " + inverse(7, 19));
+        System.out.println("4: " + modPower(2, 200, 19));
+        System.out.println("5956885: " + modPower(1234, 9876, 9999999));
+        System.out.println("738256: " + modPower(65536, 999888, 1500600));
+        //End of Wes's unit tests
+        
         Person Alice = new Person();
         Person Bob = new Person();
 
@@ -28,6 +36,7 @@ public class RSA
         show (cipher);
 
         System.out.println ("Alice decodes and reads: " + Alice.decrypt (cipher));
+        
     }
 
    /*
@@ -49,6 +58,7 @@ The inverse of e, mod m. Uses the extended Eulidean Algorithm*/
          carry = u[0];
          u[0] = u[1];
          u[1] = carry - u[0]*q;
+         System.out.println(r[0] + " "+r[1]+ " "+q+" "+u[0]+" "+u[1]);
       }
       return (u[1]+m) % m;//Add m to remove negative values
    }
@@ -79,9 +89,9 @@ The inverse of e, mod m. Uses the extended Eulidean Algorithm*/
       for(int i = 1; i < powers.length; i++){
          powers[i] = (powers[i-1]*powers[i-1]) % m;
       }
-      for(int i = bits.length()-1; i > 0; i--){
+      for(int i = bits.length()-1; i >= 0; i--){
          if(bits.charAt(i) == '1'){
-            result *= powers[bits.length() - i];
+            result *= powers[bits.length() - i - 1];
             result = result % m;
          }
       }
