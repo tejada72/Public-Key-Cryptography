@@ -37,7 +37,20 @@ public class RSA
    /*Find the multiplicative inverse of a long int
 Returns:
 The inverse of e, mod m. Uses the extended Eulidean Algorithm*/
-      return 0;
+      long[] r = {e, (m % e)};
+      long q = m / e;
+      long[] u = {0, 1};
+      long carry;
+      while(r[1] != 1){
+         carry = r[0];
+         r[0] = r[1];
+         r[1] = carry % r[1];
+         q = carry / r[0];
+         carry = u[0];
+         u[0] = u[1];
+         u[1] = carry - u[0]*q;
+      }
+      return (u[1]+m) % m;//Add m to remove negative values
    }
 
    /*
