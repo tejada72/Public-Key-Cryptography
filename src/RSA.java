@@ -89,7 +89,7 @@ The inverse of e, mod m. Uses the extended Eulidean Algorithm*/
       String bits = Long.toBinaryString(p);
       bits = bits.substring(bits.indexOf('1'));
       long[] powers = new long[bits.length()];
-      powers[0] = b;
+      powers[0] = b % m;
       for(int i = 1; i < powers.length; i++){
          powers[i] = (powers[i-1]*powers[i-1]) % m;
       }

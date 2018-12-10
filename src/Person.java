@@ -10,8 +10,8 @@ public class Person {
 	 */
 	public Person() {	
 		Random rand = new Random();
-		long p = RSA.randPrime(1000000, 2147483647, rand);
-		long q = RSA.randPrime(1000000, 2147483647, rand);
+		long p = RSA.randPrime(20000, 65000, rand);
+		long q = RSA.randPrime(20000, 65000, rand);
 		
 		mM = p * q;
 		mN = (p -1) * (q -1);
