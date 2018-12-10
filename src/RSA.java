@@ -8,6 +8,11 @@ public class RSA
     
         //Wes's method testing
         System.out.println("11: " + inverse(7, 19));
+        System.out.println("9: " + inverse(3, 26));
+        System.out.println("7306: " + inverse(812, 9871));
+        System.out.println("485489529: " + inverse(10000169, 738197503));//Two primes
+
+        
         System.out.println("4: " + modPower(2, 200, 19));
         System.out.println("5956885: " + modPower(1234, 9876, 9999999));
         System.out.println("738256: " + modPower(65536, 999888, 1500600));
@@ -48,7 +53,7 @@ Returns:
 The inverse of e, mod m. Uses the extended Eulidean Algorithm*/
       long[] r = {e, (m % e)};
       long q = m / e;
-      long[] u = {0, 1};
+      long[] u = {1, -q};
       long carry;
       while(r[1] != 1){
          carry = r[0];
@@ -58,7 +63,6 @@ The inverse of e, mod m. Uses the extended Eulidean Algorithm*/
          carry = u[0];
          u[0] = u[1];
          u[1] = carry - u[0]*q;
-         System.out.println(r[0] + " "+r[1]+ " "+q+" "+u[0]+" "+u[1]);
       }
       return (u[1]+m) % m;//Add m to remove negative values
    }
